@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.example.templatebottomnavmenu.R
 import com.example.templatebottomnavmenu.ui.dashboard.DashboardFragment
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 class HomeFragment : Fragment() {
 
