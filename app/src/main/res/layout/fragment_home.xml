@@ -6,44 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="294dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:text="Logout"
+        android:textColor="@color/colorText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/importText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.872" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/importText"
         android:layout_width="336dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="192dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="@string/app_name"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSave"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <Button
         android:id="@+id/buttonSave"
-        android:layout_width="294dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="128dp"
+        android:layout_width="335dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
         android:text="Save"
         android:textColor="@color/colorText"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonLogout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/importText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

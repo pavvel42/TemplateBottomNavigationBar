@@ -20,6 +20,7 @@ class HomeFragment : Fragment() {
     private lateinit var homeViewModel: HomeViewModel
     private lateinit var importEditText: EditText
     private lateinit var saveButton: Button
+    private lateinit var logoutButton: Button
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -33,18 +34,20 @@ class HomeFragment : Fragment() {
     fun initialize(root: View) {
         importEditText = root.findViewById(R.id.importText)
         saveButton = root.findViewById(R.id.buttonSave)
+        logoutButton = root.findViewById(R.id.buttonLogout)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showToast(view)
+        actionListener(view)
     }
 
-    fun showToast(view: View){
+    fun actionListener(view: View){
         saveButton.setOnClickListener {
             Toast.makeText(context,importEditText.text,Toast.LENGTH_SHORT).show()
             changeFragment(view)
         }
+
     }
 
     fun changeFragment(view: View){
