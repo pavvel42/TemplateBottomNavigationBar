@@ -3,7 +3,8 @@ package com.example.templatebottomnavmenu
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.ActionBar
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -32,6 +33,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        menu?.findItem(R.id.avatar)?.setIcon(R.drawable.ic_google_logo) //avatar
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item?.itemId == R.id.avatar){
+            Log.d(TAG, "Change fragment")
+            //supportFragmentManager.beginTransaction().replace(R.id.navigation_dashboard,DashboardFragment()).commit()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     fun initialize(){
