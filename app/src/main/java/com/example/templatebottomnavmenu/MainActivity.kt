@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item?.itemId == R.id.avatar){
+        if(item.itemId == R.id.avatar){
             Log.d(TAG, "Change fragment")
             //supportFragmentManager.beginTransaction().replace(R.id.navigation_dashboard,DashboardFragment()).commit()
         }
