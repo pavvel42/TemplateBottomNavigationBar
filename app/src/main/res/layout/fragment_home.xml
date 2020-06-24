@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/importText"
         android:layout_width="336dp"
         android:layout_height="0dp"
@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSave"
         android:layout_width="335dp"
         android:layout_height="58dp"

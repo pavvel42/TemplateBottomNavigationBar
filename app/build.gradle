@@ -64,4 +64,10 @@ dependencies {
     // Google Sign In SDK (only required for Google Sign In)
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
 
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

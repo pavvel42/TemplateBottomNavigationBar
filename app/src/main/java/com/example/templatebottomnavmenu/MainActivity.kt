@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,9 +14,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +44,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-        menu?.findItem(R.id.avatar)?.setIcon(R.drawable.ic_google_logo) //avatar
+//        menu?.findItem(R.id.avatar)?.setIcon(R.drawable.ic_google_logo) //avatar
+//        var icon = ImageView(this)
+//        Picasso.get().load(auth.currentUser?.photoUrl.toString()).into(icon)
+//        menu?.findItem(R.id.avatar)?.actionView = icon
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -63,7 +67,7 @@ class MainActivity : AppCompatActivity() {
         // [END initialize_auth]
     }
 
-    private fun signOut(){
+    fun signOut(){
         auth.signOut()
         // [START config_signOut]
         // Configure Google Sign Out
@@ -78,10 +82,5 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "logout:success")
         })
         // [END config_signOut]
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        signOut()
     }
 }

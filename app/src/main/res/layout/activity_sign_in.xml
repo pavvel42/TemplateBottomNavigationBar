@@ -14,7 +14,7 @@
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_firebase_logo" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_marginTop="20dp"
         android:visibility="invisible" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,11 +42,8 @@
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:layout_marginBottom="70dp"
-        android:background="@drawable/round_bg"
-        android:drawableStart="@drawable/ic_google_logo"
-        android:drawableLeft="@drawable/ic_google_logo"
         android:gravity="center"
         android:text="@string/login_with_google"
-        android:textColor="@color/colorText" />
+        android:textColor="@color/colorText"/>
 
 </RelativeLayout>

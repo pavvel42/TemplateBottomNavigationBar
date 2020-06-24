@@ -53,6 +53,7 @@ class GoogleSignInActivity : AppCompatActivity() {
         auth = Firebase.auth //ktx
         //auth = FirebaseAuth.getInstance()
         // [END initialize_auth]
+        supportActionBar?.hide()
     }
 
     fun actionListener(){

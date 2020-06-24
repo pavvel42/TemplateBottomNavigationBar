@@ -32,7 +32,9 @@ class HomeFragment : Fragment() {
 
     fun initialize(root: View) {
         importEditText = root.findViewById(R.id.importText)
+        importEditText.visibility = View.INVISIBLE
         saveButton = root.findViewById(R.id.buttonSave)
+        saveButton.visibility = View.INVISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

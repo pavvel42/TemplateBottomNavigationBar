@@ -1,12 +1,20 @@
 <resources>
 
     <!-- Base application theme. -->
+    <!-- https://medium.com/over-engineering/setting-up-a-material-components-theme-for-android-fbf7774da739 -->
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
     <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorText</item>
+        <item name="materialButtonStyle">@style/AppButton</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="AppButton" parent="Widget.MaterialComponents.Button">
+        <item name="background">@drawable/round_bg</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>

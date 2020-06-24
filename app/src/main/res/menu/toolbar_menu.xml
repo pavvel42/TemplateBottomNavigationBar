@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/avatar"
-        android:icon="@drawable/ic_google_logo"
         android:title="Google Account"
+        android:icon="@drawable/ic_account_circle_24"
         app:showAsAction="ifRoom" />
+
 </menu>
