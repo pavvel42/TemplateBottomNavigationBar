@@ -11,6 +11,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -18,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
+    private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_account))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
@@ -45,7 +50,8 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == R.id.avatar){
             Log.d(TAG, "Change fragment")
-            //supportFragmentManager.beginTransaction().replace(R.id.navigation_dashboard,DashboardFragment()).commit()
+            val navController = findNavController(R.id.nav_host_fragment)
+            navController.navigate(R.id.navigation_account)
         }
         return super.onOptionsItemSelected(item)
     }
@@ -59,9 +65,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun signOut(){
         auth.signOut()
-        Log.d(TAG, "logout:success")
-        finish()
-        startActivity(Intent(this@MainActivity,GoogleSignInActivity::class.java))
+        // [START config_signOut]
+        // Configure Google Sign Out
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this,gso)
+        googleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener {
+            finish()
+            startActivity(Intent(this@MainActivity,GoogleSignInActivity::class.java))
+            Log.d(TAG, "logout:success")
+        })
+        // [END config_signOut]
     }
 
     override fun onBackPressed() {

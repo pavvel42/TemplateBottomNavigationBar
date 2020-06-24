@@ -16,4 +16,10 @@
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/title_notifications" />
 
+    <item
+        android:id="@+id/navigation_account"
+        android:icon="@drawable/ic_firebase_logo"
+        android:title="@string/title_account"
+        android:visible="false"/>
+
 </menu>

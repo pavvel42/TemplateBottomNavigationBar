@@ -48,11 +48,7 @@ class HomeFragment : Fragment() {
     }
 
     fun changeFragment(view: View){
-        val manager = parentFragmentManager
-        val transaction = manager.beginTransaction()
-        transaction.replace(R.id.nav_host_fragment.toInt(), DashboardFragment())
-        transaction.commit()
-        val navController = findNavController(view)
-        navController.navigate(R.id.navigation_dashboard)
+        parentFragmentManager.beginTransaction().replace(R.id.nav_host_fragment.toInt(), DashboardFragment()).commit()
+        findNavController(view).navigate(R.id.navigation_dashboard) //val navController = findNavController(view)
     }
 }
