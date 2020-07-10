@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,13 +19,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
+import com.leinardi.android.speeddial.SpeedDialView
 
 class MainActivity : AppCompatActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
+    private lateinit var floatingActionButton: SpeedDialView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,11 +62,36 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    fun speedDialView(){
+        floatingActionButton.inflate(R.menu.floating_action_button_menu)
+        floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem -> when (actionItem.id){
+            R.id.action_show_home -> {
+                Toast.makeText(applicationContext,R.string.title_home, Toast.LENGTH_SHORT).show()
+                floatingActionButton.close()
+                return@OnActionSelectedListener true
+            }
+            R.id.action_show_notifications -> {
+                Toast.makeText(applicationContext,R.string.title_notifications, Toast.LENGTH_SHORT).show()
+                floatingActionButton.close()
+                return@OnActionSelectedListener true
+            }
+            R.id.action_show_dashboard -> {
+                Toast.makeText(applicationContext,R.string.title_dashboard, Toast.LENGTH_SHORT).show()
+                floatingActionButton.close()
+                return@OnActionSelectedListener true
+            }
+        }
+            false
+        })
+    }
+
     fun initialize(){
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = Firebase.auth //ktx
         // [END initialize_auth]
+        floatingActionButton = findViewById(R.id.floatingActionButton)
+        speedDialView()
     }
 
     fun signOut(){

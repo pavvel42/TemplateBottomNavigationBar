@@ -18,6 +18,25 @@
         app:layout_constraintRight_toRightOf="parent"
         app:menu="@menu/bottom_nav_menu" />
 
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:sdMainFabClosedSrc="@drawable/ic_add_circle"
+        app:layout_constraintBottom_toTopOf="@id/nav_view"
+        app:layout_constraintRight_toRightOf="parent" />
+
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/floatingActionButton"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:src="@drawable/ic_add_circle"-->
+<!--        android:backgroundTint="@color/colorAccent"-->
+<!--        app:layout_constraintBottom_toTopOf="@id/nav_view"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        android:layout_margin="15dp"-->
+<!--        app:maxImageSize="40dp" />-->
+
     <fragment
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
