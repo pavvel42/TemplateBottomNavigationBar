@@ -30,7 +30,7 @@ class HomeFragment : Fragment() {
         return root
     }
 
-    fun initialize(root: View) {
+    private fun initialize(root: View) {
         importEditText = root.findViewById(R.id.importText)
         importEditText.visibility = View.INVISIBLE
         saveButton = root.findViewById(R.id.buttonSave)
@@ -42,14 +42,14 @@ class HomeFragment : Fragment() {
         actionListener(view)
     }
 
-    fun actionListener(view: View){
+    private fun actionListener(view: View){
         saveButton.setOnClickListener {
             Toast.makeText(context,importEditText.text,Toast.LENGTH_SHORT).show()
             changeFragment(view)
         }
     }
 
-    fun changeFragment(view: View){
+    private fun changeFragment(view: View){
         parentFragmentManager.beginTransaction().replace(R.id.nav_host_fragment.toInt(), DashboardFragment()).commit()
         findNavController(view).navigate(R.id.navigation_dashboard) //val navController = findNavController(view)
     }

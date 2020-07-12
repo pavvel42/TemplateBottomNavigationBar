@@ -1,13 +1,13 @@
-package com.example.templatebottomnavmenu.ui.account
+package com.example.templatebottomnavmenu.ui.settings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class AccountViewModel : ViewModel() {
+class SettingsViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is account Fragment"
+        value = "This is settings Fragment"
     }
     val text: LiveData<String> = _text
 }

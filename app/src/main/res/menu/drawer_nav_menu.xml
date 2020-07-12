@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Managment">
+        <menu>
+            <item
+                android:id="@+id/action_show_home"
+                android:icon="@drawable/ic_home_black_24dp"
+                android:title="@string/title_home"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/action_show_notifications"
+                android:icon="@drawable/ic_notifications_black_24dp"
+                android:title="@string/title_notifications"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/action_show_dashboard"
+                android:icon="@drawable/ic_dashboard_black_24dp"
+                android:title="@string/title_dashboard"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+
+    <item android:title="Actions">
+        <menu>
+            <item
+                android:id="@+id/nav_info"
+                android:icon="@drawable/ic_baseline_info_24"
+                android:title="@string/information" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_power_settings"
+                android:title="@string/logout"
+                app:showAsAction="always" />
+        </menu>
+    </item>
+</menu>

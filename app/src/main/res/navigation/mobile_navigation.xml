@@ -24,9 +24,9 @@
         tools:layout="@layout/fragment_notifications" />
 
     <fragment
-        android:id="@+id/navigation_account"
-        android:name="com.example.templatebottomnavmenu.ui.account.AccountFragment"
-        android:label="@string/title_account"
-        tools:layout="@layout/fragment_account" />
+        android:id="@+id/navigation_settings"
+        android:name="com.example.templatebottomnavmenu.ui.settings.SettingsFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_settings" />
 
 </navigation>

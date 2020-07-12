@@ -5,8 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -16,85 +23,159 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.leinardi.android.speeddial.SpeedDialView
+import com.squareup.picasso.Picasso
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val TAG = MainActivity::class.java.simpleName
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var floatingActionButton: SpeedDialView
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navBottomView: BottomNavigationView
+    private lateinit var avatar_profile: ImageView
+    private lateinit var user_name: TextView
+    private lateinit var user_emial: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        initialize()
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.navigation_account))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        buildNavigationAndView()
+        initialize()
     }
 
+    // Icon Settings in ActionBar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val menuInflater = menuInflater
         menuInflater.inflate(R.menu.toolbar_menu, menu)
-//        menu?.findItem(R.id.avatar)?.setIcon(R.drawable.ic_google_logo) //avatar
-//        var icon = ImageView(this)
-//        Picasso.get().load(auth.currentUser?.photoUrl.toString()).into(icon)
-//        menu?.findItem(R.id.avatar)?.actionView = icon
         return super.onCreateOptionsMenu(menu)
     }
 
+    // Icon Settings in ActionBar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.avatar){
+        if (item.itemId == R.id.settings) {
             Log.d(TAG, "Change fragment")
             val navController = findNavController(R.id.nav_host_fragment)
-            navController.navigate(R.id.navigation_account)
+            navController.navigate(R.id.navigation_settings)
+            //prepareSettingsView()
         }
         return super.onOptionsItemSelected(item)
     }
 
-    fun speedDialView(){
-        floatingActionButton.inflate(R.menu.floating_action_button_menu)
-        floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem -> when (actionItem.id){
-            R.id.action_show_home -> {
-                Toast.makeText(applicationContext,R.string.title_home, Toast.LENGTH_SHORT).show()
-                floatingActionButton.close()
-                return@OnActionSelectedListener true
+    // Navigation Drawer Menu
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.getItemId()) {
+            R.id.logout -> {
+                signOut()
             }
-            R.id.action_show_notifications -> {
-                Toast.makeText(applicationContext,R.string.title_notifications, Toast.LENGTH_SHORT).show()
-                floatingActionButton.close()
-                return@OnActionSelectedListener true
-            }
-            R.id.action_show_dashboard -> {
-                Toast.makeText(applicationContext,R.string.title_dashboard, Toast.LENGTH_SHORT).show()
-                floatingActionButton.close()
-                return@OnActionSelectedListener true
+            else -> {
+                Toast.makeText(applicationContext, "Other Clicked", Toast.LENGTH_SHORT).show()
             }
         }
-            false
-        })
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 
-    fun initialize(){
+    private fun prepareSettingsView(){
+        navBottomView.visibility = View.GONE
+        floatingActionButton.clearActionItems()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        //navBottomView.visibility = View.VISIBLE
+        //speedDialView()
+    }
+
+    private fun initialize() {
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = Firebase.auth //ktx
         // [END initialize_auth]
-        floatingActionButton = findViewById(R.id.floatingActionButton)
-        speedDialView()
+        Picasso.get().load(auth.currentUser?.photoUrl.toString()).into(avatar_profile)
+        user_name.text = auth.currentUser?.displayName.toString()
+        user_emial.text = (auth.currentUser?.email.toString())
     }
 
-    fun signOut(){
+    private fun speedDialView() {
+        floatingActionButton.inflate(R.menu.floating_action_button_menu)
+        floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+            when (actionItem.id) {
+                R.id.action_show_home -> {
+                    Toast.makeText(applicationContext, R.string.title_home, Toast.LENGTH_SHORT)
+                        .show()
+                    floatingActionButton.close()
+                    return@OnActionSelectedListener true
+                }
+                R.id.action_show_notifications -> {
+                    Toast.makeText(
+                        applicationContext,
+                        R.string.title_notifications,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    floatingActionButton.close()
+                    return@OnActionSelectedListener true
+                }
+                R.id.action_show_dashboard -> {
+                    Toast.makeText(applicationContext, R.string.title_dashboard, Toast.LENGTH_SHORT)
+                        .show()
+                    floatingActionButton.close()
+                    return@OnActionSelectedListener true
+                }
+            }
+            false
+        })
+    }
+
+    private fun buildNavigationAndView() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        navBottomView = findViewById(R.id.navigation_bottom_view)
+
+        val navControllerBottom = findNavController(R.id.nav_host_fragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        val appBarConfigurationBottom = AppBarConfiguration(
+            setOf(
+                R.id.navigation_home,
+                R.id.navigation_dashboard,
+                R.id.navigation_notifications,
+                R.id.navigation_settings
+            )
+        )
+        setupActionBarWithNavController(navControllerBottom, appBarConfigurationBottom)
+        navBottomView.setupWithNavController(navControllerBottom)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        val navDrawer: NavigationView = findViewById(R.id.navigation_drawer)
+
+        navDrawer.setNavigationItemSelectedListener(this)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        floatingActionButton = findViewById(R.id.floatingActionButton)
+        speedDialView()
+
+        val headerView = navDrawer.getHeaderView(0) //<View>
+        avatar_profile = headerView.findViewById(R.id.avatar_profile)
+        user_name = headerView.findViewById(R.id.user_name)
+        user_emial = headerView.findViewById(R.id.user_emial)
+    }
+
+    private fun signOut() {
         auth.signOut()
         // [START config_signOut]
         // Configure Google Sign Out
@@ -102,10 +183,10 @@ class MainActivity : AppCompatActivity() {
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
-        googleSignInClient = GoogleSignIn.getClient(this,gso)
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
         googleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener {
             finish()
-            startActivity(Intent(this@MainActivity,GoogleSignInActivity::class.java))
+            startActivity(Intent(this@MainActivity, GoogleSignInActivity::class.java))
             Log.d(TAG, "logout:success")
         })
         // [END config_signOut]

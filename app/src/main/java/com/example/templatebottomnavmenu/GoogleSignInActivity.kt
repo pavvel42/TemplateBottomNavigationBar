@@ -45,7 +45,7 @@ class GoogleSignInActivity : AppCompatActivity() {
         actionListener()
     }
 
-    fun initialize(){
+    private fun initialize(){
         progressBar = findViewById(R.id.progress_circular)
         login = findViewById(R.id.login)
         // [START initialize_auth]
@@ -56,13 +56,13 @@ class GoogleSignInActivity : AppCompatActivity() {
         supportActionBar?.hide()
     }
 
-    fun actionListener(){
+    private fun actionListener(){
         login.setOnClickListener{
             signInGoogle()
         }
     }
 
-    fun signInGoogle(){
+    private fun signInGoogle(){
         progressBar.visibility = View.VISIBLE
         val signInIntent: Intent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
