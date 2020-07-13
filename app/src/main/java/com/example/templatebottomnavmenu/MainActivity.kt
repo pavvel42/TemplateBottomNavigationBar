@@ -61,8 +61,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         if (item.itemId == R.id.settings) {
             Log.d(TAG, "Change fragment")
             val navController = findNavController(R.id.nav_host_fragment)
+            val idCurrentDestinationFragment = navController.currentDestination?.id
+            val idSettingsFragment = R.id.navigation_settings
+            Log.d(TAG, "Check ID Fragment: $idCurrentDestinationFragment ?== $idSettingsFragment")
+            if(idCurrentDestinationFragment == idSettingsFragment){
+                navController.popBackStack()
+            }
             navController.navigate(R.id.navigation_settings)
-            //prepareSettingsView()
+            prepareSettingsView()
         }
         return super.onOptionsItemSelected(item)
     }
@@ -88,8 +94,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onBackPressed() {
         super.onBackPressed()
-        //navBottomView.visibility = View.VISIBLE
-        //speedDialView()
+        Log.d(TAG, "onBackPressed")
+        navBottomView.visibility = View.VISIBLE
+        speedDialView()
     }
 
     private fun initialize() {
