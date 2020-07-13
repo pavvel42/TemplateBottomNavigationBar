@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var navBottomView: BottomNavigationView
     private lateinit var avatar_profile: ImageView
     private lateinit var user_name: TextView
-    private lateinit var user_emial: TextView
+    private lateinit var user_email: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,13 +82,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // Navigation Drawer Menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
-            R.id.logout -> {
-                signOut()
-            }
-            else -> {
-                Toast.makeText(applicationContext, "Other Clicked", Toast.LENGTH_SHORT).show()
-            }
+        when (item.itemId) {
+            R.id.logout -> { signOut() }
+            else -> { Toast.makeText(applicationContext, "Other Clicked", Toast.LENGTH_SHORT).show() }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -113,7 +109,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // [END initialize_auth]
         Picasso.get().load(auth.currentUser?.photoUrl.toString()).into(avatar_profile)
         user_name.text = auth.currentUser?.displayName.toString()
-        user_emial.text = (auth.currentUser?.email.toString())
+        user_email.text = (auth.currentUser?.email.toString())
     }
 
     private fun speedDialView() {
@@ -121,23 +117,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
             when (actionItem.id) {
                 R.id.action_show_home -> {
-                    Toast.makeText(applicationContext, R.string.title_home, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(applicationContext, R.string.title_home, Toast.LENGTH_SHORT).show()
                     floatingActionButton.close()
                     return@OnActionSelectedListener true
                 }
                 R.id.action_show_notifications -> {
-                    Toast.makeText(
-                        applicationContext,
-                        R.string.title_notifications,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(applicationContext, R.string.title_notifications, Toast.LENGTH_SHORT).show()
                     floatingActionButton.close()
                     return@OnActionSelectedListener true
                 }
                 R.id.action_show_dashboard -> {
-                    Toast.makeText(applicationContext, R.string.title_dashboard, Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(applicationContext, R.string.title_dashboard, Toast.LENGTH_SHORT).show()
                     floatingActionButton.close()
                     return@OnActionSelectedListener true
                 }
@@ -186,7 +176,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val headerView = navDrawer.getHeaderView(0) //<View>
         avatar_profile = headerView.findViewById(R.id.avatar_profile)
         user_name = headerView.findViewById(R.id.user_name)
-        user_emial = headerView.findViewById(R.id.user_emial)
+        user_email = headerView.findViewById(R.id.user_email)
     }
 
     private fun signOut() {
