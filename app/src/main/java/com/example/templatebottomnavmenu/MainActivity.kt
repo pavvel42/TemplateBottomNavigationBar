@@ -6,9 +6,9 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -53,13 +53,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Icon Settings in ActionBar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
+        val itemMenu = menu?.findItem(R.id.settings)
+        val rootView: View = itemMenu?.actionView as View //FrameLayout Icon Settings
+        rootView.setOnClickListener { onOptionsItemSelected(item = itemMenu); rootView.animateView() }
         return super.onCreateOptionsMenu(menu)
     }
 
     // Icon Settings in ActionBar
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.settings) {
-            Log.d(TAG, "Change fragment")
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.settings -> {
             val navController = findNavController(R.id.nav_host_fragment)
             val idCurrentDestinationFragment = navController.currentDestination?.id
             val idSettingsFragment = R.id.navigation_settings
@@ -69,8 +71,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             navController.navigate(R.id.navigation_settings)
             prepareSettingsView()
+            true
         }
-        return super.onOptionsItemSelected(item)
+        else -> {
+            // If we got here, the user's action was not recognized.
+            // Invoke the superclass to handle it.
+            super.onOptionsItemSelected(item)
+        }
     }
 
     // Navigation Drawer Menu
@@ -197,5 +204,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Log.d(TAG, "logout:success")
         })
         // [END config_signOut]
+    }
+
+    private fun View.animateView() {
+        var r = RotateAnimation(0F, 360F, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        r.duration = 2.toLong() * 500
+        r.repeatCount = 0
+        startAnimation(r)
     }
 }
