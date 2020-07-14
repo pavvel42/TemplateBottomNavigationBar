@@ -12,6 +12,8 @@ import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -24,15 +26,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import com.squareup.picasso.Picasso
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private val TAG = MainActivity::class.java.simpleName
+    private val constraintLayout by lazy { findViewById<ConstraintLayout>(R.id.container) }
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var floatingActionButton: SpeedDialView
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var avatar_profile: ImageView
     private lateinit var user_name: TextView
     private lateinit var user_email: TextView
+    private var snackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,7 +90,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.logout -> { signOut() }
-            else -> { Toast.makeText(applicationContext, "Other Clicked", Toast.LENGTH_SHORT).show() }
+            else -> {
+                val nameActionItem = item.title
+                showSnackbar(getString(R.string.write_action_for)+" $nameActionItem")
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -93,13 +102,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun prepareSettingsView(){
         navBottomView.visibility = View.GONE
         floatingActionButton.clearActionItems()
+        floatingActionButton.setMainFabClosedDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_keyboard_return_24, theme))
+        floatingActionButton.mainFabClosedIconColor = ResourcesCompat.getColor(resources, R.color.colorWhite, theme)
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         Log.d(TAG, "onBackPressed")
         navBottomView.visibility = View.VISIBLE
-        speedDialView()
+        floatingActionButton.clearActionItems()
+        speedDialViewBuilder()
     }
 
     private fun initialize() {
@@ -112,7 +124,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         user_email.text = (auth.currentUser?.email.toString())
     }
 
-    private fun speedDialView() {
+    private fun speedDialViewInflate() {
         floatingActionButton.inflate(R.menu.floating_action_button_menu)
         floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
             when (actionItem.id) {
@@ -130,6 +142,64 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Toast.makeText(applicationContext, R.string.title_dashboard, Toast.LENGTH_SHORT).show()
                     floatingActionButton.close()
                     return@OnActionSelectedListener true
+                }
+            }
+            false
+        })
+    }
+
+    private fun speedDialViewBuilder() {
+
+        floatingActionButton.setOnChangeListener(object : SpeedDialView.OnChangeListener {
+            override fun onMainActionSelected(): Boolean {
+                Log.d(TAG, "Main action clicked!")
+                val navController = findNavController(R.id.nav_host_fragment)
+                val idCurrentDestinationFragment = navController.currentDestination?.id
+                val idSettingsFragment = R.id.navigation_settings
+                Log.d(TAG, "Check ID Fragment: $idCurrentDestinationFragment ?== $idSettingsFragment")
+                if(idCurrentDestinationFragment == idSettingsFragment){
+                    onBackPressed()
+                }
+                return false // True to keep the Speed Dial open
+            }
+
+            override fun onToggleChanged(isOpen: Boolean) {
+                Log.d(TAG, "Speed dial toggle state changed. Open = $isOpen")
+            }
+        })
+
+        floatingActionButton.setMainFabClosedDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_add_24, theme))
+        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_home, R.drawable.ic_baseline_home_24)
+            .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
+            .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
+            .setLabel(getString(R.string.title_home))
+            .create())
+        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_dashboard, R.drawable.ic_baseline_dashboard_24)
+            .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
+            .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
+            .setLabel(getString(R.string.title_dashboard))
+            .create())
+        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_notifications, R.drawable.ic_baseline_notifications_24)
+            .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
+            .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
+            .setLabel(getString(R.string.title_notifications))
+            .create())
+
+        floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem -> when (actionItem.id) {
+                R.id.fab_home -> {
+                    floatingActionButton.replaceActionItem(SpeedDialActionItem.Builder(actionItem.id, R.drawable.ic_baseline_home_24)
+                        .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
+                        .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
+                        .setLabel(getString(R.string.title_home))
+                        .create(), 0)
+                    //floatingActionButton.close() // To close the Speed Dial with animation
+                    return@OnActionSelectedListener true // false will close it without animation
+                }
+                else -> {
+                    val nameActionItem = actionItem.getLabel(this@MainActivity)
+                    showSnackbar(getString(R.string.write_action_for)+" $nameActionItem")
+                    floatingActionButton.close() // To close the Speed Dial with animation
+                    return@OnActionSelectedListener true // false will close it without animation
                 }
             }
             false
@@ -171,7 +241,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         floatingActionButton = findViewById(R.id.floatingActionButton)
-        speedDialView()
+        speedDialViewBuilder()
 
         val headerView = navDrawer.getHeaderView(0) //<View>
         avatar_profile = headerView.findViewById(R.id.avatar_profile)
@@ -201,5 +271,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         r.duration = 2.toLong() * 500
         r.repeatCount = 0
         startAnimation(r)
+    }
+
+    private fun showSnackbar(text: String) {
+        snackbar = Snackbar.make(constraintLayout, text, Snackbar.LENGTH_SHORT)
+        checkNotNull(snackbar).apply {
+            setAction("Close") { dismiss() }
+            show()
+        }
     }
 }

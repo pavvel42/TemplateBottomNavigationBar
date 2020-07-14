@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fab_main_create" type="id" />
+    <item name="fab_settings" type="id" />
+    <item name="fab_home" type="id" />
+    <item name="fab_dashboard" type="id" />
+    <item name="fab_notifications" type="id" />
+</resources>
