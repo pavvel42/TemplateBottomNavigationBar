@@ -43,7 +43,6 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="70dp"
         android:gravity="center"
-        android:text="@string/login_with_google"
-        android:textColor="@color/colorText"/>
+        android:text="@string/login_with_google"/>
 
 </RelativeLayout>

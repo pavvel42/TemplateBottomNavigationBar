@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:textStyle="bold"
+        android:textColor="@color/colorWhite"
         android:text="Example Name User" />
 
     <com.google.android.material.textview.MaterialTextView
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:textStyle="italic"
         android:paddingTop="2dp"
+        android:textColor="@color/colorWhite"
         android:text="email@example.com" />
 
 </LinearLayout>
