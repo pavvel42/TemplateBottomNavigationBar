@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
+            android:configChanges="screenSize|orientation"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".GoogleSignInActivity"
