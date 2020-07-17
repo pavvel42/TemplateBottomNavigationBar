@@ -1,8 +1,9 @@
-**Template Bottom Navigation Bar**
+# Template Bottom Navigation Bar
 
+Layout sketch ready to use. Requires to be connected to your Firebase project. 
 _min API Version 23_
 
-**How to run**
+# How to run
 
 1. Clone this repository
 2. Get **google-services.json** from your Firebase project.
@@ -13,7 +14,7 @@ _min API Version 23_
 4. Once you have placed the **google-services.json** in a cloned project, in the IDE do **rebuild project**
 5. Run ‘app’
 
-**Used libraries**
+# Used libraries
 
 **[Picasso](https://github.com/square/picasso)**
 
