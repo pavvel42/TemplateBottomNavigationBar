@@ -9,9 +9,9 @@
                 android:title="@string/add_permission"
                 app:showAsAction="always" />
             <item
-                android:id="@+id/generate_next_item"
-                android:icon="@drawable/ic_baseline_playlist_add_24"
-                android:title="@string/generate_next_item"
+                android:id="@+id/example_action"
+                android:icon="@drawable/ic_baseline_add_24"
+                android:title="@string/example_action"
                 app:showAsAction="always" />
         </menu>
     </item>
@@ -19,7 +19,7 @@
     <item android:title="@string/menu_actions">
         <menu>
             <item
-                android:id="@+id/nav_info"
+                android:id="@+id/information"
                 android:icon="@drawable/ic_baseline_info_24"
                 android:title="@string/information"
                 app:showAsAction="always"/>

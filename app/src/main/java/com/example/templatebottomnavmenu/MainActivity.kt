@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_permission -> { checkPermissions() }
+            R.id.information -> { showSnackbar(getString(R.string.app_name)) }
             R.id.logout -> { signOut() }
             else -> {
                 val nameActionItem = item.title

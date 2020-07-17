@@ -6,9 +6,11 @@
     <string name="title_settings">Settings</string>
     <string name="login_with_google">Login with Google</string>
     <string name="menu_management">Management</string>
+    <string name="menu_generate_items">Generate Items</string>
     <string name="menu_actions">Actions</string>
     <string name="add_permission">Add Permission</string>
-    <string name="generate_next_item">Generate Next Item</string>
+    <string name="example_action">Example Action</string>
+    <string name="clear_item_list">Clear Item List</string>
     <string name="information">Information</string>
     <string name="logout">Logout</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
