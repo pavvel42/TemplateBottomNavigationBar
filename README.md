@@ -1,12 +1,12 @@
 **Template Bottom Navigation Bar**
 
-_Project objective: Learning Kotlin_
+_min API Version 23_
 
 **How to run**
 
 1. Clone this repository
-2. You need to get **google-services.json** from your Firebase project.
-    1. follow only the first **three steps** in this [documentation](https://firebase.google.com/docs/android/setup?authuser=0) (the last step is **3.1 b**)
+2. Get **google-services.json** from your Firebase project.
+    1. Follow only the first **three steps** in this [documentation](https://firebase.google.com/docs/android/setup?authuser=0) (the last step is **3.1 b**)
 3. Enable Google Sign-In in the Firebase console:
     1. In the Firebase console, open the **Auth** section.
     2. On the **Sign in method** tab, enable the **Google** sign-in method and click **Save**.
