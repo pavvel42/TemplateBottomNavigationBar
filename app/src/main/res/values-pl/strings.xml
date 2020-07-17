@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TemplateBottomNavMenu</string>
+    <string name="title_home">Pulpit</string>
+    <string name="title_notifications">Powiadomienia</string>
+    <string name="title_dashboard">Tablica</string>
+    <string name="title_settings">Ustawienia</string>
+    <string name="login_with_google">Logowanie</string>
+    <string name="menu_management">Zarządzanie</string>
+    <string name="menu_generate_items">Dodaj pozycje</string>
+    <string name="menu_actions">Akcje</string>
+    <string name="add_permission">Dodaj Uprawnienia</string>
+    <string name="example_action">Przykładowa Akcja</string>
+    <string name="clear_item_list">Wyczyść Liste Menu</string>
+    <string name="information">Informacja</string>
+    <string name="logout">Wyloguj</string>
+    <string name="navigation_drawer_open">Otwórz Navigation Drawer</string>
+    <string name="navigation_drawer_close">Zamknij Navigation Drawer</string>
+    <string name="write_action_for">Dodaj akcje dla</string>
+    <string name="example_permission">Aplikacja potrzebuje dostępu do przykładowych uprawnień</string>
+    <string name="already_have_permission">Aplikacja posiada uprawnienia</string>
+</resources>

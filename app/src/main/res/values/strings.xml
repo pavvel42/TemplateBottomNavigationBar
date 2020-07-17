@@ -4,7 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_settings">Settings</string>
-    <string name="login_with_google">Login with Google</string>
+    <string name="login_with_google">Login</string>
     <string name="menu_management">Management</string>
     <string name="menu_generate_items">Generate Items</string>
     <string name="menu_actions">Actions</string>
@@ -13,8 +13,8 @@
     <string name="clear_item_list">Clear Item List</string>
     <string name="information">Information</string>
     <string name="logout">Logout</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Open Navigation Drawer</string>
+    <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="write_action_for">Add action for</string>
     <string name="example_permission">This app needs access to example permission</string>
     <string name="already_have_permission">Already have permission</string>
