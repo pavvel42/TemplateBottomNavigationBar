@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         initialize()
     }
 
-    // Icon Settings in ActionBar
+    // Icon Settings Create - ActionBar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
         val itemMenu = menu?.findItem(R.id.settings)
@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return super.onCreateOptionsMenu(menu)
     }
 
-    // Icon Settings in ActionBar
+    // Icon Settings Select - ActionBar
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.settings -> {
             val navController = findNavController(R.id.nav_host_fragment)

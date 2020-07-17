@@ -1,32 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Managment">
+    <item android:title="@string/menu_management">
         <menu>
             <item
-                android:id="@+id/action_show_home_test"
-                android:icon="@drawable/ic_baseline_home_24"
-                android:title="@string/title_home"
+                android:id="@+id/add_permission"
+                android:icon="@drawable/ic_baseline_add_circle_outline_24"
+                android:title="@string/add_permission"
                 app:showAsAction="always" />
             <item
-                android:id="@+id/action_show_notifications_test"
-                android:icon="@drawable/ic_baseline_notifications_24"
-                android:title="@string/title_notifications"
-                app:showAsAction="always" />
-            <item
-                android:id="@+id/action_show_dashboard_test"
-                android:icon="@drawable/ic_baseline_dashboard_24"
-                android:title="@string/title_dashboard"
+                android:id="@+id/generate_next_item"
+                android:icon="@drawable/ic_baseline_playlist_add_24"
+                android:title="@string/generate_next_item"
                 app:showAsAction="always" />
         </menu>
     </item>
 
-    <item android:title="Actions">
+    <item android:title="@string/menu_actions">
         <menu>
             <item
                 android:id="@+id/nav_info"
                 android:icon="@drawable/ic_baseline_info_24"
-                android:title="@string/information" />
+                android:title="@string/information"
+                app:showAsAction="always"/>
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/ic_baseline_power_settings_new_24"
