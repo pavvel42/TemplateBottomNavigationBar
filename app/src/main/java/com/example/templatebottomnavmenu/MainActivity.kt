@@ -1,5 +1,6 @@
 package com.example.templatebottomnavmenu
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.RotateAnimation
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -33,8 +36,11 @@ import com.google.firebase.ktx.Firebase
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
 import com.squareup.picasso.Picasso
+import pub.devrel.easypermissions.AfterPermissionGranted
+import pub.devrel.easypermissions.AppSettingsDialog
+import pub.devrel.easypermissions.EasyPermissions
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, EasyPermissions.PermissionCallbacks {
 
     private val TAG = MainActivity::class.java.simpleName
     private val constraintLayout by lazy { findViewById<ConstraintLayout>(R.id.container) }
@@ -89,6 +95,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Navigation Drawer Menu
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.add_permission -> { checkPermissions() }
             R.id.logout -> { signOut() }
             else -> {
                 val nameActionItem = item.title
@@ -279,5 +286,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setAction("Close") { dismiss() }
             show()
         }
+    }
+
+    @AfterPermissionGranted(Companion.RC_CAMERA_AND_LOCATION)
+    private fun checkPermissions(){
+        val perms = arrayOf<String>(Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION)
+        if (EasyPermissions.hasPermissions(this, *perms)) {
+            // Already have permission, do the thing
+            showSnackbar(getString(R.string.already_have_permission))
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.example_permission),
+                Companion.RC_CAMERA_AND_LOCATION, *perms);
+        }
+    }
+
+    //override methods RequestPermissions
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String?>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
+    }
+
+    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
+        Log.d(TAG, "PermissionsDenied")
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            AppSettingsDialog.Builder(this).build().show()
+        }
+    }
+
+    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+        Log.d(TAG, "PermissionsGranted")
+    }
+
+    companion object {
+        private const val RC_CAMERA_AND_LOCATION = 123
     }
 }

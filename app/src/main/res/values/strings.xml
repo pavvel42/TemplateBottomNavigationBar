@@ -14,4 +14,6 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="write_action_for">Add action for</string>
+    <string name="example_permission">This app needs access to example permission</string>
+    <string name="already_have_permission">Already have permission</string>
 </resources>
