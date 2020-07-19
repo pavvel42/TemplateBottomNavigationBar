@@ -19,9 +19,9 @@
     <item android:title="@string/menu_actions">
         <menu>
             <item
-                android:id="@+id/information"
+                android:id="@+id/about"
                 android:icon="@drawable/ic_baseline_info_24"
-                android:title="@string/information"
+                android:title="@string/about_app"
                 app:showAsAction="always"/>
             <item
                 android:id="@+id/logout"

@@ -12,7 +12,7 @@
     <string name="add_permission">Dodaj Uprawnienia</string>
     <string name="example_action">Przykładowa Akcja</string>
     <string name="clear_item_list">Wyczyść Liste Menu</string>
-    <string name="information">Informacja</string>
+    <string name="about_app">O aplikacji</string>
     <string name="logout">Wyloguj</string>
     <string name="navigation_drawer_open">Otwórz Navigation Drawer</string>
     <string name="navigation_drawer_close">Zamknij Navigation Drawer</string>

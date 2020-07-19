@@ -31,9 +31,10 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSave"
-        android:layout_width="335dp"
-        android:layout_height="58dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Save"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
         android:textColor="@color/colorText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

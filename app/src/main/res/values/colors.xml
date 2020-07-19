@@ -7,4 +7,5 @@
     <color name="colorText">#757575</color>
     <color name="colorWhite">#FAFAFA</color>
     <color name="colorBlack">#212121</color>
+    <color name="colorOverlay">#70546e7a</color>
 </resources>

@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialOverlayLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import com.squareup.picasso.Picasso
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -96,7 +97,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.add_permission -> { checkPermissions() }
-            R.id.information -> { showSnackbar(getString(R.string.app_name)) }
+            R.id.about -> { showSnackbar(getString(R.string.app_name)) }
             R.id.logout -> { signOut() }
             else -> {
                 val nameActionItem = item.title
@@ -173,6 +174,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             override fun onToggleChanged(isOpen: Boolean) {
                 Log.d(TAG, "Speed dial toggle state changed. Open = $isOpen")
+                if (isOpen){ navBottomView.visibility = View.INVISIBLE }
+                else { navBottomView.visibility = View.VISIBLE }
             }
         })
 
@@ -202,6 +205,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                         .create(), 0)
                     //floatingActionButton.close() // To close the Speed Dial with animation
                     return@OnActionSelectedListener true // false will close it without animation
+                }
+                R.id.fab_dashboard -> {
+                    navBottomView.animate().translationYBy((navBottomView.height).toFloat()).setDuration(300).withEndAction { navBottomView.visibility = View.GONE }
+                }
+                R.id.fab_notifications -> {
+                    navBottomView.visibility = View.VISIBLE
+                    navBottomView.animate().translationYBy((-navBottomView.height).toFloat()).start()
                 }
                 else -> {
                     val nameActionItem = actionItem.getLabel(this@MainActivity)
@@ -298,7 +308,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, getString(R.string.example_permission),
-                Companion.RC_CAMERA_AND_LOCATION, *perms);
+                Companion.RC_CAMERA_AND_LOCATION, *perms)
         }
     }
 
