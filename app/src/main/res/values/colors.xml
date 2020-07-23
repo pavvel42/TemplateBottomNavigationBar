@@ -8,4 +8,5 @@
     <color name="colorWhite">#FAFAFA</color>
     <color name="colorBlack">#212121</color>
     <color name="colorOverlay">#70546e7a</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

@@ -34,7 +34,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.leinardi.android.speeddial.SpeedDialActionItem
-import com.leinardi.android.speeddial.SpeedDialOverlayLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import com.squareup.picasso.Picasso
 import pub.devrel.easypermissions.AfterPermissionGranted
@@ -79,9 +78,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val idCurrentDestinationFragment = navController.currentDestination?.id
             val idSettingsFragment = R.id.navigation_settings
             Log.d(TAG, "Check ID Fragment: $idCurrentDestinationFragment ?== $idSettingsFragment")
-            if(idCurrentDestinationFragment == idSettingsFragment){
-                navController.popBackStack()
-            }
+            if(idCurrentDestinationFragment == idSettingsFragment){ navController.popBackStack() }
             navController.navigate(R.id.navigation_settings)
             prepareSettingsView()
             true
@@ -118,6 +115,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         super.onBackPressed()
         Log.d(TAG, "onBackPressed")
+        supportActionBar?.show()
         navBottomView.visibility = View.VISIBLE
         floatingActionButton.clearActionItems()
         speedDialViewBuilder()
@@ -133,30 +131,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         user_email.text = (auth.currentUser?.email.toString())
     }
 
-    private fun speedDialViewInflate() {
-        floatingActionButton.inflate(R.menu.floating_action_button_menu)
-        floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
-            when (actionItem.id) {
-                R.id.action_show_home -> {
-                    Toast.makeText(applicationContext, R.string.title_home, Toast.LENGTH_SHORT).show()
-                    floatingActionButton.close()
-                    return@OnActionSelectedListener true
-                }
-                R.id.action_show_notifications -> {
-                    Toast.makeText(applicationContext, R.string.title_notifications, Toast.LENGTH_SHORT).show()
-                    floatingActionButton.close()
-                    return@OnActionSelectedListener true
-                }
-                R.id.action_show_dashboard -> {
-                    Toast.makeText(applicationContext, R.string.title_dashboard, Toast.LENGTH_SHORT).show()
-                    floatingActionButton.close()
-                    return@OnActionSelectedListener true
-                }
-            }
-            false
-        })
-    }
-
     private fun speedDialViewBuilder() {
 
         floatingActionButton.setOnChangeListener(object : SpeedDialView.OnChangeListener {
@@ -165,10 +139,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 val navController = findNavController(R.id.nav_host_fragment)
                 val idCurrentDestinationFragment = navController.currentDestination?.id
                 val idSettingsFragment = R.id.navigation_settings
+                val idCircularFragmentA = R.id.fragment_fullscreen_a
+                val idCircularFragmentB = R.id.fragment_fullscreen_b
                 Log.d(TAG, "Check ID Fragment: $idCurrentDestinationFragment ?== $idSettingsFragment")
-                if(idCurrentDestinationFragment == idSettingsFragment){
-                    onBackPressed()
-                }
+                if(idCurrentDestinationFragment == idSettingsFragment){ onBackPressed() }
+                if(idCurrentDestinationFragment == idCircularFragmentA){ onBackPressed() }
+                if(idCurrentDestinationFragment == idCircularFragmentB){ onBackPressed() }
                 return false // True to keep the Speed Dial open
             }
 
@@ -180,38 +156,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         })
 
         floatingActionButton.setMainFabClosedDrawable(ResourcesCompat.getDrawable(resources, R.drawable.ic_baseline_add_24, theme))
-        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_home, R.drawable.ic_baseline_home_24)
+        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_circular_fragment_a, R.drawable.ic_firebase_logo)
             .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
             .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
-            .setLabel(getString(R.string.title_home))
+            .setLabel(getString(R.string.action_circular_fragment_a))
             .create())
-        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_dashboard, R.drawable.ic_baseline_dashboard_24)
+        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_circular_fragment_b, R.drawable.ic_google_logo)
             .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
             .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
-            .setLabel(getString(R.string.title_dashboard))
-            .create())
-        floatingActionButton.addActionItem(SpeedDialActionItem.Builder(R.id.fab_notifications, R.drawable.ic_baseline_notifications_24)
-            .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
-            .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
-            .setLabel(getString(R.string.title_notifications))
+            .setLabel(getString(R.string.action_circular_fragment_b))
             .create())
 
         floatingActionButton.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem -> when (actionItem.id) {
-                R.id.fab_home -> {
-                    floatingActionButton.replaceActionItem(SpeedDialActionItem.Builder(actionItem.id, R.drawable.ic_baseline_home_24)
-                        .setFabBackgroundColor(ResourcesCompat.getColor(resources, R.color.colorWhite, theme))
-                        .setFabImageTintColor(ResourcesCompat.getColor(resources, R.color.colorSecondaryVariant, theme))
-                        .setLabel(getString(R.string.title_home))
-                        .create(), 0)
-                    //floatingActionButton.close() // To close the Speed Dial with animation
+                R.id.fab_circular_fragment_a -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.fragment_fullscreen_a)
+                    floatingActionButton.close()
+                    supportActionBar?.hide()
+                    prepareSettingsView()
                     return@OnActionSelectedListener true // false will close it without animation
                 }
-                R.id.fab_dashboard -> {
-                    navBottomView.animate().translationYBy((navBottomView.height).toFloat()).setDuration(300).withEndAction { navBottomView.visibility = View.GONE }
-                }
-                R.id.fab_notifications -> {
-                    navBottomView.visibility = View.VISIBLE
-                    navBottomView.animate().translationYBy((-navBottomView.height).toFloat()).start()
+                R.id.fab_circular_fragment_b -> {
+                    findNavController(R.id.nav_host_fragment).navigate(R.id.fragment_fullscreen_b)
+                    floatingActionButton.close()
+                    supportActionBar?.hide()
+                    prepareSettingsView()
+                    return@OnActionSelectedListener true // false will close it without animation
                 }
                 else -> {
                     val nameActionItem = actionItem.getLabel(this@MainActivity)
@@ -238,7 +207,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.navigation_home,
                 R.id.navigation_dashboard,
                 R.id.navigation_notifications,
-                R.id.navigation_settings
+                R.id.navigation_settings,
+                R.id.fragment_fullscreen_a,
+                R.id.fragment_fullscreen_b
             )
         )
         setupActionBarWithNavController(navControllerBottom, appBarConfigurationBottom)

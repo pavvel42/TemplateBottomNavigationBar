@@ -26,19 +26,15 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(viewLifecycleOwner, Observer { textView.text = it })
-        initialize(root)
         return root
-    }
-
-    private fun initialize(root: View) {
-        importEditText = root.findViewById(R.id.importText)
-        importEditText.visibility = View.INVISIBLE
-        saveButton = root.findViewById(R.id.buttonSave)
-        saveButton.visibility = View.INVISIBLE
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        importEditText = view.findViewById(R.id.importText)
+        importEditText.visibility = View.INVISIBLE
+        saveButton = view.findViewById(R.id.buttonSave)
+        saveButton.visibility = View.INVISIBLE
         actionListener(view)
     }
 

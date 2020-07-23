@@ -4,18 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:ignore="AlwaysShowAction">
     <item
-        android:id="@+id/action_show_home"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/title_home"
+        android:id="@+id/action_show_circular_fragment_a"
+        android:icon="@drawable/ic_firebase_logo"
+        android:title="@string/action_circular_fragment_a"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_show_notifications"
-        android:icon="@drawable/ic_baseline_notifications_24"
-        android:title="@string/title_notifications"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/action_show_dashboard"
-        android:icon="@drawable/ic_baseline_dashboard_24"
-        android:title="@string/title_dashboard"
+        android:id="@+id/action_show_circular_fragment_b"
+        android:icon="@drawable/ic_google_logo"
+        android:title="@string/action_circular_fragment_b"
         app:showAsAction="always" />
 </menu>

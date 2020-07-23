@@ -16,10 +16,4 @@
         android:icon="@drawable/ic_baseline_notifications_24"
         android:title="@string/title_notifications" />
 
-    <item
-        android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_baseline_settings_24"
-        android:title="@string/title_settings"
-        android:visible="false"/>
-
 </menu>

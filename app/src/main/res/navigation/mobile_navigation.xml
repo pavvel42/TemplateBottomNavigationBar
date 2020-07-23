@@ -29,4 +29,16 @@
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/fragment_fullscreen_a"
+        android:name="com.example.templatebottomnavmenu.ui.circularfragment.CircularFragmentA"
+        android:label="@string/action_circular_fragment_a"
+        tools:layout="@layout/fragment_circular_a" />
+
+    <fragment
+        android:id="@+id/fragment_fullscreen_b"
+        android:name="com.example.templatebottomnavmenu.ui.circularfragment.CircularFragmentB"
+        android:label="@string/action_circular_fragment_b"
+        tools:layout="@layout/fragment_circular_b" />
+
 </navigation>
