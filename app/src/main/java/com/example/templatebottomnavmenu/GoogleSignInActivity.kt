@@ -18,7 +18,6 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
 class GoogleSignInActivity : AppCompatActivity() {
 
     private val TAG = GoogleSignInActivity::class.java.simpleName
